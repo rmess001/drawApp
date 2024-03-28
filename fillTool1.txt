@@ -1,0 +1,56 @@
+function fillBucket(){
+	this.icon = "assets/fill.png"; //Path to fill tool image
+	this.name = "Fill Bucket"; //Name of tool
+
+	this.draw = function(){
+        if (mouseIsPressed && mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
+            //print(color(colourP.selectedColour))
+            floodFill(mouseX, mouseY, get(mouseX, mouseY), color(colourP.selectedColour).levels)
+            print("DONE")
+            //test(mouseX, mouseY);
+        }
+    }
+
+  floodFill = function(startX, startY, oColor, nColor) {
+    if (startX < 0 || startX >= 1182 || startY < 0 || startY >= 736) {
+        return;
+    }
+
+    let pixelColor = get(startX, startY);
+    if (!colorsMatch(pixelColor, oColor) || colorsMatch(pixelColor, nColor)) { //if the current pixel that is being check does not match the original pixels color or already matches the new color return
+        return;
+    }
+  
+    pixelSet(startX, startY, color(nColor[0], nColor[1], nColor[2], nColor[3]).levels);
+    updatePixels();
+
+    floodFill(startX + 1, startY, oColor, nColor);
+    floodFill(startX - 1, startY, oColor, nColor);
+    floodFill(startX, startY + 1, oColor, nColor);
+    floodFill(startX, startY - 1, oColor, nColor);
+  }
+
+  colorsMatch = function(color1, color2) {
+      for (let i = 0; i < 4; i++) {
+          if (color1[i] !== color2[i]) {
+              return false;
+          }
+      }
+      return true;
+  }
+
+  pixelSet = function(x, y, color) {
+
+    for (let i = 0; i < pixelDensity(); i += 1) {
+      for (let j = 0; j < pixelDensity(); j += 1) {
+        let index = 4 * ((y * pixelDensity() + j) * width * pixelDensity() + (x * pixelDensity() + i));
+        
+        pixels[index + 0] = color[0];
+        pixels[index + 1] = color[1];
+        pixels[index + 2] = color[2];
+        pixels[index + 3] = color[3];
+      }
+    }
+  }
+
+}

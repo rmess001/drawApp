@@ -21,12 +21,15 @@ function mirrorDrawTool() {
 	var previousOppositeMouseX = -1;
 	var previousOppositeMouseY = -1;
 
+	var previousMouseState = false;
+
 	this.draw = function() {
 		//display the last save state of pixels
 		updatePixels();
 
 		//do the drawing if the mouse is pressed
 		if (mouseIsPressed) {
+			previousMouseState = mouseIsPressed;
 			//if the previous values are -1 set them to the current mouse location
 			//and mirrored positions
 			if (previousMouseX == -1) {
@@ -51,6 +54,7 @@ function mirrorDrawTool() {
 				previousOppositeMouseX = oX;
 				previousOppositeMouseY = oY;
 			}
+			if(previousMouseState != mouseIsPressed) {undoB.storeCanvas(); previousMouseState = false;}
 		}
 		//if the mouse isn't pressed reset the previous values to -1
 		else {
@@ -60,6 +64,7 @@ function mirrorDrawTool() {
 			previousOppositeMouseX = -1;
 			previousOppositeMouseY = -1;
 		}
+		if(previousMouseState != mouseIsPressed) {undoB.storeCanvas(); previousMouseState = false;}
 
 		//after the drawing is done save the pixel state. We don't want the
 		//line of symmetry to be part of our drawing

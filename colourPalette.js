@@ -28,6 +28,14 @@ function ColourPalette() {
 		this.style("border", "2px solid blue");
 	};
 
+	this.updateStroke = function() {
+		//stroke(0);
+		//strokeWeight(0)
+		//updatePixels();
+		//text("Stroke: " + str(strokeSlider.value()), 500, 5)
+		strokeWeight(strokeSlider.value());
+	}
+
 	//load in the colours
 	this.loadColours = function() {
 		//set the fill and stroke properties to be black at the start of the programme
@@ -55,4 +63,9 @@ function ColourPalette() {
 	};
 	//call the loadColours function now it is declared
 	this.loadColours();
+
+	let strokeSlider;
+	strokeSlider = createSlider(1, 20, 1, 1);
+	strokeSlider.position(350, 8);
+	strokeSlider.size(200);
 }

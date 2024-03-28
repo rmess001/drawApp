@@ -3,6 +3,7 @@
 var toolbox = null;
 var colourP = null;
 var helpers = null;
+var undoB = null;
 
 function setup() {
 
@@ -23,8 +24,13 @@ function setup() {
 	toolbox.addTool(new LineToTool());
 	toolbox.addTool(new sprayCan());
 	toolbox.addTool(new mirrorDrawTool());
+	toolbox.addTool(new eraser());
+	toolbox.addTool(new fillBucket());
+	toolbox.addTool(new rectangleTool());
 	background(255);
 
+	undoB = new undo();
+	undoB.initiate();
 }
 
 function draw() {
@@ -37,4 +43,6 @@ function draw() {
 	} else {
 		alert("it doesn't look like your tool has a draw method!");
 	}
+	undoB.displayUndoButton();
+	colourP.updateStroke();
 }

@@ -1,13 +1,13 @@
-function LineToTool(){
-	this.icon = "assets/lineTo.jpg"; //Path to line tool image
-	this.name = "LineTo"; //Name of tool
+function rectangleTool(){
+	this.icon = "assets/rect.png"; //Path to line tool image
+	this.name = "Rectangle Tool"; //Name of tool
 
 	var startMouseX = -1;	//Initialize startMouseX to -1
 	var startMouseY = -1;	//Initialize startMouseY to -1
 	var drawing = false;
 
 	var previousMouseState = false;
-	
+
 	this.draw = function(){
 
 		if(mouseIsPressed){
@@ -21,7 +21,7 @@ function LineToTool(){
 
 			else{
 				updatePixels();  //Call updatePixels function to update the canvas with pixels stored in pixels array
-				line(startMouseX, startMouseY, mouseX, mouseY); //Draw line from start point to current mouse point
+				rect(startMouseX, startMouseY, mouseX-startMouseX, mouseY-startMouseY); //Draw line from start point to current mouse point
 			}
 
 		}
