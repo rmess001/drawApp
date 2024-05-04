@@ -1,0 +1,23 @@
+//spray can object literal
+    function sprayCan() {
+        this.name = "sprayCanTool";
+        this.icon = "assets/sprayCan.jpg";
+        this.points = 13;
+        this.spread = 10;
+
+        var previousMouseState = false;
+    
+    this.draw = function() {
+        //if the mouse is pressed paint on the canvas
+        //spread describes how far to spread the paint from the mouse pointer
+        //points holds how many pixels of paint for each mouse press.
+        if(mouseIsPressed){
+            previousMouseState = mouseIsPressed;
+            for(var i = 0; i < this.points; i++) {
+                point(random(mouseX-this.spread, mouseX + this.spread), 
+                    random(mouseY-this.spread, mouseY+this.spread));
+            }
+        }
+        if(previousMouseState != mouseIsPressed) {undoB.storeCanvas(); previousMouseState = false;}
+    }
+}
